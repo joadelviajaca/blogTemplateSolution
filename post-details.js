@@ -16,7 +16,7 @@ const apiBaseUrl = "http://localhost:3000";
 
       try {
         // Cargar detalles del post con el nombre del autor
-        const postResponse = await fetch(`${apiBaseUrl}/articles/${postId}?_expand=autorId`);
+        const postResponse = await fetch(`${apiBaseUrl}/articles/${postId}`);
         const post = await postResponse.json();
     
         const authorResponse = await fetch(`${apiBaseUrl}/users/${post.autorId}`);
@@ -82,9 +82,9 @@ const apiBaseUrl = "http://localhost:3000";
 // Función para cargar comentarios
 async function loadComments(postId) {
   const commentsList = document.getElementById("commentsList");
-  commentsList.innerHTML = ""; // Limpiar lista antes de cargar
+  // commentsList.innerHTML = ""; // Limpiar lista antes de cargar
   try {
-    const commentsResponse = await fetch(`${apiBaseUrl}/comments?articleId=${postId}&_expand=userId`);
+    const commentsResponse = await fetch(`${apiBaseUrl}/comments?articleId=${postId}`);
     const comments = await commentsResponse.json();
 
     for (const comment of comments) {

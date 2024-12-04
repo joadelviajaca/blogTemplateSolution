@@ -24,19 +24,31 @@ getAuthors();
 // Manejar el envío del formulario
 document.getElementById("postForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+  let validTitle = false;
+  let validAuthor = false;
+  let validContent = false;
+
   const postTitle = document.getElementById("postTitle").value;
   const postAuthor = postAuthorSelect.value;
   const postContent = document.getElementById("postContent").value;
 
-  try {
-    await fetch(`${apiBaseUrl}/articles`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: postTitle, content: postContent, autorId: parseInt(postAuthor) }),
-    });
-    alert("Post creado exitosamente");
-    window.location.href = "index.html";
-  } catch (error) {
-    console.error("Error al crear el post:", error);
+  if (postTitle.length>6) validTitle = true;
+  if (postAuthor.length>3) validAuthor = true;
+  if (postContent) validContent = true;
+
+  if (validTitle && validAuthor && validContent){
+
+    try {
+      await fetch(`${apiBaseUrl}/articles`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: postTitle, content: postContent, autorId: postAuthor }),
+      });
+      alert("Post creado exitosamente");
+      window.location.href = "index.html";
+    } catch (error) {
+      console.error("Error al crear el post:", error);
+    }
   }
+
 });

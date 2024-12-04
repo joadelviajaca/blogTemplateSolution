@@ -7,6 +7,14 @@ const tableBody = document.getElementById('postsTable');
 
 // Obtenemos los posts
 
+// const mapPromises = async post => {
+//     const response = await fetch(`${urlBase}users/${post.autorId}`);
+//     const author = await response.json();
+//     return {
+//         ...post, author: author.name
+//     }
+// }
+
 const fillTable = async () => {
     try {
         const response = await fetch(urlBase + 'articles');
@@ -32,7 +40,7 @@ const fillTable = async () => {
         });
 
     } catch (error) {
-
+        console.log('Se ha poducido un error: ', error);
     }
 
 }
